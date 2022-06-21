@@ -1,28 +1,40 @@
 const persons = [
   {
     id: 1,
-    firstName: 'Mario',
-    lastName: 'Rossi',
-    age: 25
+    firstName: "Mario",
+    lastName: "Rossi",
+    age: 25,
   },
   {
     id: 2,
-    firstName: 'Maria',
-    lastName: 'Verdi',
-    age: 32
+    firstName: "Maria",
+    lastName: "Verdi",
+    age: 32,
   },
   {
     id: 3,
-    firstName: 'Giovanni',
-    lastName: 'Rossi',
-    age: 35
-  }
+    firstName: "Giovanni",
+    lastName: "Rossi",
+    age: 35,
+  },
 ];
 
 function fetchPersonById(id) {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(persons.find(item => item.id === id)), 1000);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let person = persons.find((item) => item.id === id);
+      if (person) {
+        return resolve(person);
+      } else {
+        return reject(`Error: person with id: ${id} doesn't exist`);
+      }
+    }, 1000);
   });
 }
 
+fetchPersonById(1).then((person) => console.log(person));
 fetchPersonById(2).then((person) => console.log(person));
+fetchPersonById(3).then((person) => console.log(person));
+fetchPersonById(4)
+  .then((person) => console.log(person))
+  .catch((message) => console.log(message));
